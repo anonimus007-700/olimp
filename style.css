@@ -45,7 +45,7 @@ input[type="number"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    width: 247px;
+    width: 340px;
 }
 
 textarea {
@@ -58,25 +58,31 @@ textarea {
     margin-top: 5px;
 }
 
+.submit-button {
+    margin-top: 5px;
+}
+
+.text-input .file-input__label {
+    width: 282px;
+}
+
 .text-input {
     position: absolute;
-    margin-left: 10%;
-    margin-right: 10%;
     top: 30%;
     text-align: center;
+    width: 98%;
 }
 
 .img-download {
     position: absolute;
-    margin: 5px;
+    margin-top: 5px;
 }
 
 .file-input {
     position: absolute;
-    margin-left: 10%;
-    margin-right: 10%;
     top: 30%;
     text-align: center;
+    width: 98%
 }
 
 .file-input__input {
@@ -124,15 +130,14 @@ textarea {
 }
 
 .dec_but {
-    padding: 14px 60px;
+    padding: 14px 27px;
     padding-bottom: 8px;
 }
 
 .main_but {
     position: absolute;
-    top: 45%;
-    left: 40%;
-    right: 40%;
+    top: 38%;
+    width: 98%;
     text-align: center;
 }
 

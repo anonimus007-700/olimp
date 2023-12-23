@@ -1,4 +1,5 @@
 from PIL import Image
+from random import randint
 
 from config import *
 
@@ -8,65 +9,59 @@ from config import *
 
 text = input()
 
-image = Image.new('RGB',(1500, 4000))
+image = Image.new('RGB',(15, 4000))
 
-pixels = image.load()
+img0 = Coder.coding_script(text, image)
 
-text = Coder.text_to_cod(text)
-
-x, y = 0, 0
-
-for cod in text:
-    for i in cod:
-        if x+1 < image.size[0]:
-            if i == '1':
-                pixels[x, y] = (255,255,255)
-            else:
-                pixels[x, y] = (0,0,0)
-            x = x + 1
-        elif x+1 >= image.size[0]:
-            if i == '1':
-                pixels[x, y] = (255,255,255)
-            else:
-                pixels[x, y] = (0,0,0)
-            y = y + 1
-            x = 0
-
-    if x+1 < image.size[0]:
-        pixels[x, y] = (1,0,0)
-        x = x + 1
-    elif x+1 >= image.size[0]:
-        pixels[x, y] = (1,0,0)
-        y = y + 1
-        x = 0
-
-image = image.crop((0, 0, 1500, y+1))
-
-image.save('cod.png', 'PNG')
+img0.save('cod.png', 'PNG')
 
 ################################################
 ##################DECODING######################
 ################################################
 
-cod = []
-
 image = Image.open('cod.png')
 
-for y in range(image.size[1]):
-    for x in range(image.size[0]):
-        if image.getpixel((x, y)) == (0,0,0):
-            cod.append(0)
-        elif image.getpixel((x, y)) == (1,0,0):
-            cod.append(3)
-        else:
-            cod.append(1)
+print(Decoder.decoding_script(image))
 
-cod = [str(num) for num in cod]
+################################################
+#################PLACER_CODING##################
+################################################
 
-cod = ''.join(cod)
+img1 = Image.open("zxc.jpg")
+img2 = Image.open("cod.png")
 
-cod = cod.split('3')
+pos1 = randint(0, img1.size[0])
+pos2 = randint(0, img1.size[1])
 
-print(''.join(Decoder.int_to_text(cod)))
+if pos1 > img2.size[0]:
+    pos1 -= img2.size[0]
 
+if pos2 > img2.size[1]:
+    pos2 -= img2.size[1]
 
+str_pos = str(pos1) + ' ' + str(pos2) + ' ' + str(pos1+img2.size[0]) + ' ' + str(pos2+img2.size[1])
+img = Coder.coding_script(str_pos, Image.new("RGB", img1.size), True)
+
+str_pos = str(pos1) + ' ' + str(pos2+img.height) + ' ' + str(pos1+img2.size[0]) + ' ' + str(pos2+img2.size[1]+img.height)
+img = Coder.coding_script(str_pos, Image.new("RGB", img1.size), True)
+
+img1.paste(img2, (pos1, pos2))
+
+framed_image = Image.new("RGB", (img1.size[0], img1.height + 1))
+
+framed_image.paste(img1, (0, 1))
+framed_image.paste(img)
+
+framed_image.save('output.png')
+
+################################################
+################PLACER_DECODING#################
+################################################
+
+img = Image.open("output.png")
+
+x1, y1, x2, y2 = map(int, Decoder.decoding_script(img).split())
+
+img = img.crop((x1, y1, x2, y2))
+
+print(Decoder.decoding_script(img))

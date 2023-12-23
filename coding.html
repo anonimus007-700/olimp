@@ -65,6 +65,8 @@
             Element("img-download").element.href = links
             document.querySelector('#foto-cod img').style.display = 'none';
 
+            document.querySelector('#img-download').click();
+
         class Coder:
             def text_to_cod(text):
                 coding_text = []
@@ -77,11 +79,11 @@
     </py-script>
     <div id="foto-cod"></div>
     <div id="text-input" class="text-input">
-        <p>Для того, щоб закодувати текст потрібно вписати або вставити текст у перше поле вводу, а у другому написати пароль, після кнопку "submit". І для завантаження клавіша "Download"</p>
+        <p>Для того, щоб закодувати текст потрібно вписати або вставити текст у перше поле вводу, а у другому написати любе число, після кнопку "Завантажити".Після чого файл автоматично завантажиться.</p>
         <textarea id="text-to-cod" placeholder="Текст"></textarea><br>
-        <input type="number" id="row-widht" placeholder="Пароль">
-        <button id="submit-button" type="submit" py-click="submit()">submit</button><br>
-        <a href="#" target="_blank" download id="img-download" class="img-download">Download</a>
+        <input type="number" id="row-widht" placeholder="Довжина кодованої фотографії"><br>
+        <button id="submit-button" class="submit-button" type="submit" py-click="submit()">Завантажити</button>
+        <a href="#" target="_blank" download id="img-download" class="img-download" style="display: none;"></a>
     </div>
   </body>
 </html>
